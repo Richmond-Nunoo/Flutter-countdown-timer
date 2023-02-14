@@ -14,12 +14,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   late Timer _timer;
   late int _startCount;
+  int duration = 720;
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        _startCount++;
-      });
+      if (_startCount > 0) {
+        setState(() {
+          _startCount--;
+        });
+      } else {
+        _stopTimer();
+      }
     });
   }
 
@@ -39,7 +44,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    _startCount = 0;
+    _startCount = duration;
     _startTimer();
     WidgetsBinding.instance.addObserver(this);
     super.initState();
