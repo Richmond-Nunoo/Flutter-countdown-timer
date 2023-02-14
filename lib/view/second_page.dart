@@ -6,8 +6,9 @@ class SecondPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
-         elevation: 0,
+        elevation: 0,
         title: const Text("Second Page"),
         centerTitle: true,
       ),

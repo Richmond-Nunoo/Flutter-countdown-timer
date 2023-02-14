@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:countdown_timer/view/second_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 class HomePage extends StatefulWidget {
-  final int duration;
-  const HomePage({super.key, required this.duration});
+  const HomePage({
+    super.key,
+  });
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -13,17 +13,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   late Timer _timer;
-  late int _remainingTime;
+  late int _startCount;
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_remainingTime > 0) {
-        setState(() {
-          _remainingTime--;
-        });
-      } else {
-        _stopTimer();
-      }
+      setState(() {
+        _startCount++;
+      });
     });
   }
 
@@ -43,7 +39,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    _remainingTime = widget.duration;
+    _startCount = 0;
     _startTimer();
     WidgetsBinding.instance.addObserver(this);
     super.initState();
@@ -51,7 +47,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    _startTimer();
+    _stopTimer();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -59,7 +55,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
+      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         elevation: 0,
         title: const Text("Countdown"),
@@ -70,7 +66,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "${_remainingTime}s",
+              "${_startCount}s",
               style: Theme.of(context).textTheme.displayLarge,
             ),
             const SizedBox(
