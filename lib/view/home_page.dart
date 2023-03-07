@@ -45,8 +45,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   void initState() {
     _startCount = duration;
-    _startTimer();
-    WidgetsBinding.instance.addObserver(this);
+    _startTimer();    WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
 
